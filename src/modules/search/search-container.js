@@ -1,30 +1,84 @@
-import React from 'react'
-import { StyleSheet, Text, TextInput } from "react-native";
+import React from 'react';
+import {
+  StyleSheet, Button, StatusBar
+} from 'react-native';
+import { SafeAreaView } from 'react-navigation';
+import { connect } from 'react-redux';
+import { Input } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-export class Search extends React.Component {
+import { Logo } from '../logo/logo';
+import colourUtils from '../../utils/styles/colours';
+import { storeSummonerName, fetchSummonerId } from './actions/search-actions';
+import regionMap from '../../utils/region-mapping';
+
+class Search extends React.Component {
+  static navigationOptions = {
+    header: null
+  };
+
+  state = {
+    text: '',
+    // region: regionMap.EUW
+  };
+
+  handleSubmit() {
+    const { text } = this.state;
+    const { storeSummonerNameAction, fetchSummonerIdAction, navigation: { navigate } } = this.props;
+
+    if (!text) return;
+    storeSummonerNameAction(text);
+    fetchSummonerIdAction(regionMap.EUW, text);
+    navigate('Profile');
+  }
+
   render() {
-    const { navigate } = this.props.navigation;
-    return(
-      <View style={styles.container}>
-        <TextInput
-          style={styles.searchBar}
+    const { text } = this.state;
+    return (
+      <SafeAreaView style={styles.container}>
+        <StatusBar barStyle="dark-content" />
+        <Logo />
+        <Input
+          containerStyle={styles.searchBar}
+          inputStyle={styles.searchBarInput}
           placeholder="Enter Summoner Name"
+          onChangeText={input => this.setState({ text: input })}
+          value={text}
+          leftIcon={(
+            <Icon
+              name="user"
+              size={24}
+              color={colourUtils.apple}
+            />
+)}
         />
-      </View>
-    )
+        <Button
+          title="Search"
+          onPress={() => this.handleSubmit()}
+        />
+      </SafeAreaView>
+    );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colourUtils.linkWater,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
   },
   searchBar: {
-    height: 40, 
-    borderColor: 'gray', 
-    borderWidth: 1
+    paddingLeft: 30,
+    paddingRight: 30,
+  },
+  searchBarInput: {
+    paddingLeft: 10,
+    borderColor: colourUtils.apple,
   }
 });
+
+export default connect(null, {
+  storeSummonerNameAction: storeSummonerName,
+  fetchSummonerIdAction: fetchSummonerId
+})(Search);
