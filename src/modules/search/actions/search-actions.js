@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 
 import { STORE_SUMMONER_NAME, FETCH_SUMMONER_ID_DATA } from './search-action-constants';
@@ -12,7 +11,7 @@ export const fetchSummonerId = (region, summonerName) => {
     .then((response) => {
       dispatch({
         type: FETCH_SUMMONER_ID_DATA,
-        data: response.data
+        payload: response.data
       });
     })
     .catch((e) => {
@@ -20,9 +19,9 @@ export const fetchSummonerId = (region, summonerName) => {
     });
 };
 
-export const storeSummonerName = data => (dispatch) => {
+export const storeSummonerName = summonerName => (dispatch) => {
   dispatch({
     type: STORE_SUMMONER_NAME,
-    data
+    payload: summonerName
   });
 };

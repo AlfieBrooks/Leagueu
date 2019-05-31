@@ -21,7 +21,7 @@ export const App = () => {
       initialRouteName: 'Search',
       defaultNavigationOptions: {
         headerStyle: {
-          backgroundColor: colourUtils.veniceBlue,
+          backgroundColor: colourUtils.seaBlue,
         },
         headerTintColor: colourUtils.white,
         headerTitle: <Text style={styles.headerTitle}>Leaguéu</Text>
@@ -40,9 +40,7 @@ export const App = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    fontFamily: 'san-serif'
   },
   headerTitle: {
     color: colourUtils.linkWater

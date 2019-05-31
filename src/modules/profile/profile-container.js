@@ -1,13 +1,12 @@
 import React from 'react';
 import {
-  StyleSheet, Text, StatusBar
+  StyleSheet, StatusBar
 } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
-
 import { connect } from 'react-redux';
 
-import { Logo } from '../logo/logo';
 import colourUtils from '../../utils/styles/colours';
+import { ProfileHeader } from './header/profile-header';
 
 class Profile extends React.Component {
   componentDidMount() {
@@ -15,12 +14,15 @@ class Profile extends React.Component {
   }
 
   render() {
-    const { summonerName } = this.props;
+    const { summonerName, profileIconURL, summonerLevel } = this.props;
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="light-content" />
-        <Logo />
-        <Text>{summonerName}</Text>
+        <ProfileHeader
+          summonerName={summonerName}
+          profileIconURL={profileIconURL}
+          summonerLevel={summonerLevel}
+        />
       </SafeAreaView>
     );
   }
@@ -30,13 +32,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colourUtils.linkWater,
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-  }
+  },
 });
 
 const mapStateToProps = state => ({
-  summonerName: state.searchReducer.summonerName
+  ...state.searchReducer
 });
 
 export default connect(mapStateToProps)(Profile);
