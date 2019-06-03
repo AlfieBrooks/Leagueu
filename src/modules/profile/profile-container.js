@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import colourUtils from '../../utils/styles/colours';
 import { fetchRankedData } from './actions/ranked-actions';
 import { ProfileHeader } from './header/profile-header';
-import { RankedInfo } from './rankedInfo/rankedInfo';
+import { RankedInfo } from './ranked-info/ranked-info';
 import regionMapping from '../../utils/region-mapping';
 
 class Profile extends React.Component {

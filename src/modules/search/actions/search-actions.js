@@ -6,7 +6,7 @@ import {
   FETCH_SUMMONER_ID_DATA_SUCCESS,
   FETCH_SUMMONER_ID_DATA_FAILED
 } from './search-action-constants';
-import { baseUrl, apiKey } from '../../../utils/api-utils';
+import constructApiUrl from '../../../utils/api-utils';
 
 export const fetchSummonerIdStarted = () => ({
   type: FETCH_SUMMONER_ID_DATA_STARTED,
@@ -23,8 +23,7 @@ export const fetchSummonerIdFailed = err => ({
 });
 
 export const fetchSummonerId = (region, summonerName) => {
-  const apiUrl = `${baseUrl}/lol/summoner/v4/summoners/by-name/${summonerName}?api_key=${apiKey}`
-    .replace(/\{region\}/g, region);
+  const apiUrl = constructApiUrl(region, `/lol/summoner/v4/summoners/by-name/${summonerName}`);
 
   return dispatch => new Promise((resolve, reject) => {
     dispatch(fetchSummonerIdStarted());

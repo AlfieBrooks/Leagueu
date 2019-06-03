@@ -16,12 +16,12 @@ export const RankedInfo = ({
   leaguePoints,
 }) => (
   <View style={styles.container}>
-    <Text style={styles.summonerNameText}>{rankedQueueTypes[queueType]}</Text>
-    <Text style={styles.summonerNameText}>{`${wins} Wins`}</Text>
-    <Text style={styles.summonerNameText}>{`${losses} Losses`}</Text>
-    <Text style={styles.summonerNameText}>{`${winRatio}% Win Rate`}</Text>
-    <Text style={styles.summonerNameText}>{`${tier} ${rank}`}</Text>
-    <Text style={styles.summonerNameText}>{`${leaguePoints} LP`}</Text>
+    <Text style={styles.text}>{rankedQueueTypes[queueType]}</Text>
+    <Text style={styles.text}>{`${wins} Wins`}</Text>
+    <Text style={styles.text}>{`${losses} Losses`}</Text>
+    <Text style={styles.text}>{`${winRatio}% Win Rate`}</Text>
+    <Text style={styles.text}>{`${tier} ${rank}`}</Text>
+    <Text style={styles.text}>{`${leaguePoints} LP`}</Text>
   </View>
 );
 
@@ -32,9 +32,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colourUtils.linkWater,
   },
-  summonerLevelText: {
+  text: {
     color: colourUtils.apple,
-  },
+  }
 });
 
 export default RankedInfo;
