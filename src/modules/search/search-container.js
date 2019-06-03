@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Logo } from '../logo/logo';
 import colourUtils from '../../utils/styles/colours';
 import { storeSummonerName, fetchSummonerId } from './actions/search-actions';
-import regionMap from '../../utils/region-mapping';
+import regionMapping from '../../utils/region-mapping';
 
 class Search extends React.Component {
   static navigationOptions = {
@@ -28,8 +28,7 @@ class Search extends React.Component {
 
     if (!text) return;
     storeSummonerNameAction(text);
-    fetchSummonerIdAction(regionMap.EUW, text);
-    navigate('Profile');
+    fetchSummonerIdAction(regionMapping.EUW, text).then(() => navigate('Profile'));
   }
 
   render() {
@@ -50,7 +49,7 @@ class Search extends React.Component {
               size={24}
               color={colourUtils.apple}
             />
-)}
+          )}
         />
         <Button
           title="Search"
