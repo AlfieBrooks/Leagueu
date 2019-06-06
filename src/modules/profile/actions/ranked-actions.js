@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-import { FETCH_RANKED_DATA_STARTED, FETCH_RANKED_DATA_SUCCESS, FETCH_RANKED_DATA_FAILED } from './ranked-action-constants';
+import {
+  FETCH_RANKED_DATA_STARTED, FETCH_RANKED_DATA_FAILED
+} from './ranked-action-constants';
 import constructApiUrl from '../../../utils/api-utils';
 
 export const fetchRankedDataStarted = () => ({
@@ -8,7 +10,7 @@ export const fetchRankedDataStarted = () => ({
 });
 
 export const fetchRankedDataSuccess = data => ({
-  type: FETCH_RANKED_DATA_SUCCESS,
+  type: `FETCH_${data.queueType}_DATA_SUCCESS`,
   payload: data
 });
 
@@ -24,7 +26,7 @@ export const fetchRankedData = (region, summonerId) => {
     dispatch(fetchRankedDataStarted());
     axios.get(apiUrl)
       .then((response) => {
-        dispatch(fetchRankedDataSuccess(response.data));
+        response.data.map(data => dispatch(fetchRankedDataSuccess(data)));
       })
       .catch((err) => {
         dispatch(fetchRankedDataFailed(err.message));

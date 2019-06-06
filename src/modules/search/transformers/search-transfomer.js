@@ -1,10 +1,11 @@
 export default function searchTransformer({
   name, id, profileIconId, summonerLevel
 }) {
+  const ddragonVersion = '9.11.1';
   return {
     summonerName: name,
     summonerId: id,
-    profileIconURL: `http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/${profileIconId}.png`,
+    profileIconURL: `http://ddragon.leagueoflegends.com/cdn/${ddragonVersion}/img/profileicon/${profileIconId}.png`,
     summonerLevel,
   };
 }

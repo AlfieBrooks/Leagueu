@@ -6,23 +6,10 @@ import {
 import colourUtils from '../../../utils/styles/colours';
 import rankedQueueTypes from '../../../utils/ranked-queue-type';
 
-export const RankedInfo = ({
-  queueType,
-  wins,
-  losses,
-  winRatio,
-  rank,
-  tier,
-  leaguePoints,
-  rankIcon,
-}) => (
+export const UnrankedRankedInfo = () => (
   <View style={styles.container}>
-    <Image style={styles.image} source={{ uri: rankIcon }} />
-    <Text style={styles.text}>{rankedQueueTypes[queueType]}</Text>
-    <Text style={styles.text}>{`${wins}W / ${losses}L`}</Text>
-    <Text style={styles.text}>{`${winRatio}% Win Rate`}</Text>
-    <Text style={styles.text}>{`${tier} ${rank}`}</Text>
-    <Text style={styles.text}>{`${leaguePoints} LP`}</Text>
+    <Image style={styles.image} source={{ uri: 'https://s3-us-west-2.amazonaws.com/blitz-client-static-all/ranks/default.png' }} />
+    <Text style={styles.text}>{rankedQueueTypes.UNRANKED}</Text>
   </View>
 );
 
@@ -42,4 +29,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default RankedInfo;
+export default UnrankedRankedInfo;

@@ -22,17 +22,16 @@ export const ProfileHeader = ({ summonerName, summonerLevel, profileIconURL }) =
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: 'row',
     backgroundColor: colourUtils.apple,
   },
   innerContainerLeft: {
     flex: 1,
-    marginTop: 20,
+    marginTop: 15,
     paddingLeft: 15
   },
   summonerNameText: {
-    fontSize: 42,
+    fontSize: 36,
     color: colourUtils.linkWater,
   },
   summonerLevelText: {

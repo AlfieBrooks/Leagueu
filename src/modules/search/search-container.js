@@ -7,10 +7,12 @@ import { connect } from 'react-redux';
 import { Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import { Logo } from '../logo/logo';
 import colourUtils from '../../utils/styles/colours';
-import { storeSummonerName, fetchSummonerId } from './actions/search-actions';
 import regionMapping from '../../utils/region-mapping';
+import errorAlert from '../../utils/alert-utils';
+import { Logo } from '../logo/logo';
+import { Loading } from '../loading/loading';
+import { fetchDdragonVersion, storeSummonerName, fetchSummonerId } from './actions/search-actions';
 
 class Search extends React.Component {
   static navigationOptions = {
@@ -19,24 +21,34 @@ class Search extends React.Component {
 
   state = {
     text: '',
-    // region: regionMap.EUW
+    // region: regionMapping.EUW
   };
+
+  componentDidMount() {
+    const { fetchDdragonVersionAction } = this.props;
+    fetchDdragonVersionAction();
+  }
 
   handleSubmit() {
     const { text } = this.state;
     const { storeSummonerNameAction, fetchSummonerIdAction, navigation: { navigate } } = this.props;
 
-    if (!text) return;
+    if (!text) return errorAlert('Please enter a name');
+
     storeSummonerNameAction(text);
-    fetchSummonerIdAction(regionMapping.EUW, text).then(() => navigate('Profile'));
+    return fetchSummonerIdAction(regionMapping.EUW, text)
+      .then(() => navigate('Profile'))
+      .catch(err => errorAlert(err.message));
   }
 
-  render() {
+  renderLoading = () => (
+    <Loading />
+  )
+
+  renderInput() {
     const { text } = this.state;
     return (
-      <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="dark-content" />
-        <Logo />
+      <React.Fragment>
         <Input
           containerStyle={styles.searchBar}
           inputStyle={styles.searchBarInput}
@@ -49,12 +61,23 @@ class Search extends React.Component {
               size={24}
               color={colourUtils.apple}
             />
-          )}
+      )}
         />
         <Button
           title="Search"
           onPress={() => this.handleSubmit()}
         />
+      </React.Fragment>
+    );
+  }
+
+  render() {
+    const { searchLoading } = this.props;
+    return (
+      <SafeAreaView style={styles.container}>
+        <StatusBar barStyle="dark-content" />
+        <Logo />
+        { searchLoading ? this.renderLoading() : this.renderInput() }
       </SafeAreaView>
     );
   }
@@ -77,7 +100,15 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null, {
+const mapStateToProps = (state) => {
+  const { searchReducer } = state;
+  return {
+    searchLoading: searchReducer.loading,
+  };
+};
+
+export default connect(mapStateToProps, {
+  fetchDdragonVersionAction: fetchDdragonVersion,
   storeSummonerNameAction: storeSummonerName,
   fetchSummonerIdAction: fetchSummonerId
 })(Search);

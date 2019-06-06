@@ -1,15 +1,17 @@
 import React from 'react';
 import {
-  StyleSheet, StatusBar, Text, View
+  StyleSheet, StatusBar, View
 } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux';
 
 import colourUtils from '../../utils/styles/colours';
-import { fetchRankedData } from './actions/ranked-actions';
-import { ProfileHeader } from './header/profile-header';
-import { RankedInfo } from './ranked-info/ranked-info';
 import regionMapping from '../../utils/region-mapping';
+import { ProfileHeader } from './header/profile-header';
+import { UnrankedRankedInfo } from './ranked-info/unranked-ranked-info';
+import { RankedInfo } from './ranked-info/ranked-info';
+import { fetchRankedData } from './actions/ranked-actions';
+import rankedQueueType from '../../utils/ranked-queue-type';
 
 class Profile extends React.Component {
   componentDidMount() {
@@ -17,18 +19,13 @@ class Profile extends React.Component {
     fetchRankedDataAction(regionMapping.EUW, summonerId);
   }
 
-  renderLoading = () => (
-    <SafeAreaView style={styles.container}>
-      <Text>Loading...</Text>
-    </SafeAreaView>
-  )
-
-  renderPage() {
+  render() {
     const {
       summonerName,
       profileIconURL,
       summonerLevel,
-      ranks
+      rankedSolo,
+      rankedFlex,
     } = this.props;
 
     return (
@@ -40,27 +37,32 @@ class Profile extends React.Component {
           summonerLevel={summonerLevel}
         />
         <View style={styles.rankedContainer}>
-          { ranks && ranks.map(rank => (
-            <RankedInfo
-              key={rank.queueType}
-              queueType={rank.queueType}
-              wins={rank.wins}
-              losses={rank.losses}
-              winRatio={rank.winRatio}
-              rank={rank.rank}
-              tier={rank.tier}
-              leaguePoints={rank.leaguePoints}
-            />
-          ))
-          }
+          { [rankedSolo, rankedFlex].map((rank) => {
+            if (rank.tier === rankedQueueType.UNRANKED) {
+              return (
+                <UnrankedRankedInfo
+                  rankIcon={rank.rankIcon}
+                />
+              );
+            }
+            return (
+              <RankedInfo
+                key={rank.queueType}
+                queueType={rank.queueType}
+                wins={rank.wins}
+                losses={rank.losses}
+                winRatio={rank.winRatio}
+                rank={rank.rank}
+                tier={rank.tier}
+                leaguePoints={rank.leaguePoints}
+                rankIcon={rank.rankIcon}
+              />
+            );
+          })
+        }
         </View>
       </SafeAreaView>
     );
-  }
-
-  render() {
-    const { searchLoading } = this.props;
-    return searchLoading ? this.renderLoading() : this.renderPage();
   }
 }
 
@@ -75,6 +77,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
+    marginTop: 10,
   }
 });
 
@@ -85,8 +88,8 @@ const mapStateToProps = (state) => {
     summonerId: searchReducer.summonerId,
     profileIconURL: searchReducer.profileIconURL,
     summonerLevel: searchReducer.summonerLevel,
-    searchLoading: searchReducer.loading,
-    ranks: rankedReducer.ranks
+    rankedSolo: rankedReducer.rankedSolo,
+    rankedFlex: rankedReducer.rankedFlex,
   };
 };
 

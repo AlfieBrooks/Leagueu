@@ -1,6 +1,9 @@
+import rankTypes from '../../../utils/rank-types';
+
 export default function rankedTransformer({
   queueType, wins, losses, rank, tier, leaguePoints
 }) {
+  const rankId = rankTypes[tier + rank] || 'default';
   return {
     queueType,
     wins,
@@ -9,5 +12,6 @@ export default function rankedTransformer({
     rank,
     tier,
     leaguePoints,
+    rankIcon: `https://s3-us-west-2.amazonaws.com/blitz-client-static-all/ranks/${rankId}.png`
   };
 }
