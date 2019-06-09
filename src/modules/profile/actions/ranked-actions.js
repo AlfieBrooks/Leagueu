@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 import {
-  FETCH_RANKED_DATA_STARTED, FETCH_RANKED_DATA_FAILED
+  FETCH_RANKED_DATA_STARTED,
+  FETCH_RANKED_DATA_FAILED,
+  CLEAR_RANKED_DATA,
 } from './ranked-action-constants';
 import constructApiUrl from '../../../utils/api-utils';
 
@@ -33,3 +35,9 @@ export const fetchRankedData = (region, summonerId) => {
       });
   };
 };
+
+export const clearRankedData = () => dispatch => (
+  dispatch({
+    type: CLEAR_RANKED_DATA
+  })
+);

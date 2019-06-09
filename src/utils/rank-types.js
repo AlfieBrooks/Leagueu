@@ -1,4 +1,5 @@
 export default {
+  UNRANKED: 'Unranked',
   IRONIV: 'iron_4',
   IRONIII: 'iron_3',
   IRONII: 'iron_2',

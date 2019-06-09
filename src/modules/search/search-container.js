@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  StyleSheet, Button, StatusBar
+  StyleSheet, Button, StatusBar, View
 } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -64,6 +64,7 @@ class Search extends React.Component {
       )}
         />
         <Button
+          style={styles.searchButton}
           title="Search"
           onPress={() => this.handleSubmit()}
         />
@@ -77,7 +78,9 @@ class Search extends React.Component {
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="dark-content" />
         <Logo />
-        { searchLoading ? this.renderLoading() : this.renderInput() }
+        <View style={styles.inputContainer}>
+          { searchLoading ? this.renderLoading() : this.renderInput() }
+        </View>
       </SafeAreaView>
     );
   }
@@ -86,18 +89,27 @@ class Search extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colourUtils.linkWater,
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-evenly',
+    backgroundColor: colourUtils.linkWater,
+  },
+  inputContainer: {
+    height: 100,
   },
   searchBar: {
+    minWidth: 310,
     paddingLeft: 30,
     paddingRight: 30,
   },
   searchBarInput: {
     paddingLeft: 10,
     borderColor: colourUtils.apple,
-  }
+  },
+  searchButton: {
+    flex: 2,
+    marginTop: 50,
+  },
 });
 
 const mapStateToProps = (state) => {
