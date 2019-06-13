@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 
 import colourUtils from '../../../utils/styles/colours';
-import rankedQueueTypes from '../../../utils/ranked-queue-type';
+import rankedQueueTypes from '../../../utils/constants/ranked-queue-type';
 
 export const RankedInfo = ({
   queueType,
@@ -18,11 +18,10 @@ export const RankedInfo = ({
 }) => (
   <View style={styles.container}>
     <Image style={styles.image} source={{ uri: rankIcon }} />
-    <Text style={styles.text}>{rankedQueueTypes[queueType]}</Text>
+    <Text style={styles.title}>{rankedQueueTypes[queueType]}</Text>
+    <Text style={styles.text}>{`${tier} ${rank} (${leaguePoints} LP)`}</Text>
     <Text style={styles.text}>{`${wins}W / ${losses}L`}</Text>
     <Text style={styles.text}>{`${winRatio}% Win Rate`}</Text>
-    <Text style={styles.text}>{`${tier} ${rank}`}</Text>
-    <Text style={styles.text}>{`${leaguePoints} LP`}</Text>
   </View>
 );
 
@@ -35,7 +34,13 @@ const styles = StyleSheet.create({
   },
   image: {
     height: 150,
-    width: 150
+    width: 150,
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 5,
+    color: colourUtils.limerick,
   },
   text: {
     color: colourUtils.apple,

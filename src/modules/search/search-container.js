@@ -1,18 +1,20 @@
 import React from 'react';
 import {
-  StyleSheet, Button, StatusBar, View
+  StyleSheet, Button, StatusBar, View, Text
 } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux';
-import { Input } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Input, ListItem, Icon } from 'react-native-elements';
+import TouchableScale from 'react-native-touchable-scale';
 
 import colourUtils from '../../utils/styles/colours';
-import regionMapping from '../../utils/region-mapping';
+import regionMapping from '../../utils/constants/region-mapping';
 import errorAlert from '../../utils/alert-utils';
 import { Logo } from '../logo/logo';
 import { Loading } from '../loading/loading';
-import { fetchDdragonVersion, storeSummonerName, fetchSummonerId } from './actions/search-actions';
+import {
+  fetchDdragonVersion, storeSummonerName, storeSummonerInfo, fetchSummonerId
+} from './actions/search-actions';
 
 class Search extends React.Component {
   static navigationOptions = {
@@ -25,8 +27,14 @@ class Search extends React.Component {
   };
 
   componentDidMount() {
-    const { fetchDdragonVersionAction } = this.props;
-    fetchDdragonVersionAction();
+    // const { fetchDdragonVersionAction } = this.props;
+    // fetchDdragonVersionAction();
+  }
+
+  handleFavouriteClick(summonerInfo) {
+    const { storeSummonerInfoAction, navigation: { navigate } } = this.props;
+    storeSummonerInfoAction(summonerInfo);
+    navigate('Profile');
   }
 
   handleSubmit() {
@@ -59,6 +67,7 @@ class Search extends React.Component {
             <Icon
               name="user"
               size={24}
+              type="font-awesome"
               color={colourUtils.apple}
             />
       )}
@@ -72,8 +81,23 @@ class Search extends React.Component {
     );
   }
 
+  renderList = favourite => (
+    <ListItem
+      Component={TouchableScale}
+      friction={90}
+      tension={100}
+      activeScale={0.95}
+      style={styles.listItem}
+      key={favourite.summonerId}
+      title={favourite.summonerName}
+      onPress={() => this.handleFavouriteClick(favourite)}
+      leftAvatar={{ source: { uri: favourite.profileIconURL } }}
+      chevron
+    />
+  )
+
   render() {
-    const { searchLoading } = this.props;
+    const { searchLoading, favourites } = this.props;
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="dark-content" />
@@ -81,6 +105,14 @@ class Search extends React.Component {
         <View style={styles.inputContainer}>
           { searchLoading ? this.renderLoading() : this.renderInput() }
         </View>
+        { favourites.length > 0
+          && (
+          <View style={styles.favouritesContainer}>
+            <Text style={styles.favouritesTitle}>Favourites:</Text>
+              { favourites.map(this.renderList) }
+          </View>
+          )
+        }
       </SafeAreaView>
     );
   }
@@ -98,7 +130,7 @@ const styles = StyleSheet.create({
     height: 100,
   },
   searchBar: {
-    minWidth: 310,
+    minWidth: 350,
     paddingLeft: 30,
     paddingRight: 30,
   },
@@ -110,17 +142,30 @@ const styles = StyleSheet.create({
     flex: 2,
     marginTop: 50,
   },
+  favouritesTitle: {
+    color: colourUtils.apple,
+    fontSize: 18,
+    marginBottom: 15
+  },
+  favouritesContainer: {
+    width: 300
+  },
+  listItem: {
+    marginBottom: 3
+  }
 });
 
 const mapStateToProps = (state) => {
-  const { searchReducer } = state;
+  const { searchReducer, favouriteReducer } = state;
   return {
     searchLoading: searchReducer.loading,
+    favourites: favouriteReducer.favourites,
   };
 };
 
 export default connect(mapStateToProps, {
   fetchDdragonVersionAction: fetchDdragonVersion,
   storeSummonerNameAction: storeSummonerName,
+  storeSummonerInfoAction: storeSummonerInfo,
   fetchSummonerIdAction: fetchSummonerId
 })(Search);

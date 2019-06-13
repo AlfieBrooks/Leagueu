@@ -1,6 +1,4 @@
-import {
-  Alert
-} from 'react-native';
+import { Alert } from 'react-native';
 
 export default function errorAlert(errorMessage) {
   return (

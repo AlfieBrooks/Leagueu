@@ -6,12 +6,16 @@ import { SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux';
 
 import colourUtils from '../../utils/styles/colours';
-import regionMapping from '../../utils/region-mapping';
+import regionMapping from '../../utils/constants/region-mapping';
+import rankTypes from '../../utils/constants/rank-types';
 import { ProfileHeader } from './header/profile-header';
 import { UnrankedRankedInfo } from './ranked-info/unranked-ranked-info';
 import { RankedInfo } from './ranked-info/ranked-info';
 import { fetchRankedData, clearRankedData } from './actions/ranked-actions';
-import rankTypes from '../../utils/rank-types';
+import { addToFavourites, removeFromFavourites } from './actions/favourite-actions';
+import errorAlert from '../../utils/alert-utils';
+
+const MAX_FAVOURITES = 3;
 
 class Profile extends React.Component {
   componentDidMount() {
@@ -24,13 +28,56 @@ class Profile extends React.Component {
     clearRankedDataAction();
   }
 
+  isAFavourite = (favourites, summonerId) => favourites && favourites.some(
+    favourite => favourite.summonerId === summonerId
+  );
+
+  addSummonerToFavourites = () => {
+    const {
+      favourites,
+      addToFavouritesAction,
+      summonerName,
+      summonerId,
+      profileIconURL,
+      summonerLevel,
+    } = this.props;
+
+    if (favourites.length + 1 > MAX_FAVOURITES) {
+      errorAlert('You can only add a maximum of 3 favourites');
+    } else {
+      addToFavouritesAction({
+        summonerName,
+        summonerId,
+        profileIconURL,
+        summonerLevel,
+        region: regionMapping.EUW,
+      });
+    }
+  }
+
+  removeSummonerFromFavourites = () => {
+    const { removeFromFavouritesAction, summonerId } = this.props;
+    removeFromFavouritesAction(summonerId);
+  }
+
+  toggleFavourite = () => {
+    const { favourites, summonerId } = this.props;
+    if (this.isAFavourite(favourites, summonerId)) {
+      this.removeSummonerFromFavourites();
+    } else {
+      this.addSummonerToFavourites();
+    }
+  }
+
   render() {
     const {
       summonerName,
+      summonerId,
       profileIconURL,
       summonerLevel,
       rankedSolo,
-      rankedFlex,
+      rankedFlexSR,
+      favourites,
     } = this.props;
 
     return (
@@ -40,9 +87,11 @@ class Profile extends React.Component {
           summonerName={summonerName}
           profileIconURL={profileIconURL}
           summonerLevel={summonerLevel}
+          toggleFavourite={this.toggleFavourite}
+          isAFavourite={this.isAFavourite(favourites, summonerId)}
         />
         <View style={styles.rankedContainer}>
-          { [rankedSolo, rankedFlex].map((rank) => {
+          { [rankedSolo, rankedFlexSR].map((rank) => {
             if (rank.tier === rankTypes.UNRANKED) {
               return (
                 <UnrankedRankedInfo
@@ -76,31 +125,35 @@ class Profile extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
     justifyContent: 'flex-start',
     backgroundColor: colourUtils.linkWater,
   },
   rankedContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: 10,
+    alignItems: 'stretch',
+    marginLeft: 15,
+    marginRight: 15,
   }
 });
 
 const mapStateToProps = (state) => {
-  const { searchReducer, rankedReducer } = state;
+  const { searchReducer, rankedReducer, favouriteReducer } = state;
   return {
     summonerName: searchReducer.summonerName,
     summonerId: searchReducer.summonerId,
     profileIconURL: searchReducer.profileIconURL,
     summonerLevel: searchReducer.summonerLevel,
     rankedSolo: rankedReducer.rankedSolo,
-    rankedFlex: rankedReducer.rankedFlex,
+    rankedFlexSR: rankedReducer.rankedFlexSR,
+    rankedFlexTT: rankedReducer.rankedFlexTT,
+    favourites: favouriteReducer.favourites,
   };
 };
 
 export default connect(mapStateToProps, {
   fetchRankedDataAction: fetchRankedData,
-  clearRankedDataAction: clearRankedData
+  clearRankedDataAction: clearRankedData,
+  addToFavouritesAction: addToFavourites,
+  removeFromFavouritesAction: removeFromFavourites,
 })(Profile);

@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 
 import colourUtils from '../../../utils/styles/colours';
-import rankTypes from '../../../utils/rank-types';
+import rankTypes from '../../../utils/constants/rank-types';
 
 export const UnrankedRankedInfo = ({ queueType }) => (
   <View style={styles.container}>
@@ -12,7 +12,7 @@ export const UnrankedRankedInfo = ({ queueType }) => (
       style={styles.image}
       source={{ uri: 'https://s3-us-west-2.amazonaws.com/blitz-client-static-all/ranks/default.png' }}
     />
-    <Text style={styles.text}>{queueType}</Text>
+    <Text style={styles.title}>{queueType}</Text>
     <Text style={styles.text}>{rankTypes.UNRANKED}</Text>
   </View>
 );
@@ -26,7 +26,12 @@ const styles = StyleSheet.create({
   },
   image: {
     height: 150,
-    width: 150
+    width: 150,
+  },
+  title: {
+    fontWeight: 'bold',
+    marginBottom: 5,
+    color: colourUtils.apple,
   },
   text: {
     color: colourUtils.apple,

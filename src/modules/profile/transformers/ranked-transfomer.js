@@ -1,4 +1,4 @@
-import rankTypes from '../../../utils/rank-types';
+import rankTypes from '../../../utils/constants/rank-types';
 
 export default function rankedTransformer({
   queueType, wins, losses, rank, tier, leaguePoints

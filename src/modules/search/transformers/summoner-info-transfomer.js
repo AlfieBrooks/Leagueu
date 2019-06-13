@@ -1,4 +1,4 @@
-export default function searchTransformer({
+export default function summonerInfoTransformer({
   name, id, profileIconId, summonerLevel
 }) {
   const ddragonVersion = '9.11.1';

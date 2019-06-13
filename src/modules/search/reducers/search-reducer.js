@@ -1,11 +1,12 @@
 import {
   FETCH_DDRAGON_VERSION,
   STORE_SUMMONER_NAME,
+  STORE_SUMMONER_INFO,
   FETCH_SUMMONER_ID_DATA_STARTED,
   FETCH_SUMMONER_ID_DATA_SUCCESS,
   FETCH_SUMMONER_ID_DATA_FAILED
 } from '../actions/search-action-constants';
-import searchTransformer from '../transformers/search-transfomer';
+import summonerInfoTransformer from '../transformers/summoner-info-transfomer';
 
 const initialState = {
   loading: false,
@@ -18,6 +19,11 @@ const searchReducer = (state = initialState, action) => {
       return { ...state, ddragonVersion: action.payload };
     case STORE_SUMMONER_NAME:
       return { ...state, searchSummonerName: action.payload };
+    case STORE_SUMMONER_INFO:
+      return {
+        ...state,
+        ...action.payload
+      };
     case FETCH_SUMMONER_ID_DATA_STARTED:
       return {
         ...state,
@@ -28,7 +34,7 @@ const searchReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: null,
-        ...searchTransformer(action.payload)
+        ...summonerInfoTransformer(action.payload)
       };
     case FETCH_SUMMONER_ID_DATA_FAILED:
       return {

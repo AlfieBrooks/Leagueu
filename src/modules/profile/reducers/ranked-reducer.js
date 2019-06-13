@@ -2,12 +2,13 @@ import {
   FETCH_RANKED_DATA_STARTED,
   FETCH_RANKED_SOLO_5x5_DATA_SUCCESS, // eslint-disable-line camelcase
   FETCH_RANKED_FLEX_SR_DATA_SUCCESS,
+  FETCH_RANKED_FLEX_TT_DATA_SUCCESS,
   FETCH_RANKED_DATA_FAILED,
   CLEAR_RANKED_DATA,
 } from '../actions/ranked-action-constants';
 import rankedTransformer from '../transformers/ranked-transfomer';
-import rankedQueueTypes from '../../../utils/ranked-queue-type';
-import rankTypes from '../../../utils/rank-types';
+import rankedQueueTypes from '../../../utils/constants/ranked-queue-type';
+import rankTypes from '../../../utils/constants/rank-types';
 
 const initialState = {
   loading: false,
@@ -16,8 +17,12 @@ const initialState = {
     queueType: rankedQueueTypes.RANKED_SOLO_5x5,
     tier: rankTypes.UNRANKED
   },
-  rankedFlex: {
+  rankedFlexSR: {
     queueType: rankedQueueTypes.RANKED_FLEX_SR,
+    tier: rankTypes.UNRANKED
+  },
+  rankedFlexTT: {
+    queueType: rankedQueueTypes.RANKED_FLEX_TT,
     tier: rankTypes.UNRANKED
   }
 };
@@ -42,7 +47,14 @@ const rankedReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: null,
-        rankedFlex: rankedTransformer(action.payload),
+        rankedFlexSR: rankedTransformer(action.payload),
+      };
+    case FETCH_RANKED_FLEX_TT_DATA_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        rankedFlexTT: rankedTransformer(action.payload),
       };
     case FETCH_RANKED_DATA_FAILED:
       return {
