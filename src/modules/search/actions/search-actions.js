@@ -3,7 +3,6 @@ import axios from 'axios';
 import {
   FETCH_DDRAGON_VERSION,
   STORE_SUMMONER_NAME,
-  STORE_SUMMONER_INFO,
   FETCH_SUMMONER_ID_DATA_STARTED,
   FETCH_SUMMONER_ID_DATA_SUCCESS,
   FETCH_SUMMONER_ID_DATA_FAILED
@@ -64,12 +63,5 @@ export const storeSummonerName = summonerName => (dispatch) => {
   dispatch({
     type: STORE_SUMMONER_NAME,
     payload: summonerName
-  });
-};
-
-export const storeSummonerInfo = data => (dispatch) => {
-  dispatch({
-    type: STORE_SUMMONER_INFO,
-    payload: data
   });
 };

@@ -1,19 +1,19 @@
 import React from 'react';
 import {
-  StyleSheet, Button, StatusBar, View, Text
+  StyleSheet, Button, StatusBar, View, TextInput
 } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux';
-import { Input, ListItem, Icon } from 'react-native-elements';
-import TouchableScale from 'react-native-touchable-scale';
+import { Icon } from 'react-native-elements';
 
 import colourUtils from '../../utils/styles/colours';
 import regionMapping from '../../utils/constants/region-mapping';
 import errorAlert from '../../utils/alert-utils';
 import { Logo } from '../logo/logo';
 import { Loading } from '../loading/loading';
+import { FavouritesList } from '../favourites-list/favourites-list';
 import {
-  fetchDdragonVersion, storeSummonerName, storeSummonerInfo, fetchSummonerId
+  fetchDdragonVersion, storeSummonerName, fetchSummonerId
 } from './actions/search-actions';
 
 class Search extends React.Component {
@@ -31,10 +31,11 @@ class Search extends React.Component {
     // fetchDdragonVersionAction();
   }
 
-  handleFavouriteClick(summonerInfo) {
-    const { storeSummonerInfoAction, navigation: { navigate } } = this.props;
-    storeSummonerInfoAction(summonerInfo);
-    navigate('Profile');
+  handleFavouriteClick = (summonerName) => {
+    const { fetchSummonerIdAction, navigation: { navigate } } = this.props;
+    return fetchSummonerIdAction(regionMapping.EUW, summonerName)
+      .then(() => navigate('Profile'))
+      .catch(err => errorAlert(err.message));
   }
 
   handleSubmit() {
@@ -57,12 +58,13 @@ class Search extends React.Component {
     const { text } = this.state;
     return (
       <React.Fragment>
-        <Input
-          containerStyle={styles.searchBar}
-          inputStyle={styles.searchBarInput}
+        <TextInput
+          style={styles.searchBar}
           placeholder="Enter Summoner Name"
           onChangeText={input => this.setState({ text: input })}
+          onSubmitEditing={() => this.handleSubmit()}
           value={text}
+          returnKeyType="search"
           leftIcon={(
             <Icon
               name="user"
@@ -70,7 +72,7 @@ class Search extends React.Component {
               type="font-awesome"
               color={colourUtils.apple}
             />
-      )}
+        )}
         />
         <Button
           style={styles.searchButton}
@@ -80,21 +82,6 @@ class Search extends React.Component {
       </React.Fragment>
     );
   }
-
-  renderList = favourite => (
-    <ListItem
-      Component={TouchableScale}
-      friction={90}
-      tension={100}
-      activeScale={0.95}
-      style={styles.listItem}
-      key={favourite.summonerId}
-      title={favourite.summonerName}
-      onPress={() => this.handleFavouriteClick(favourite)}
-      leftAvatar={{ source: { uri: favourite.profileIconURL } }}
-      chevron
-    />
-  )
 
   render() {
     const { searchLoading, favourites } = this.props;
@@ -107,10 +94,10 @@ class Search extends React.Component {
         </View>
         { favourites.length > 0
           && (
-          <View style={styles.favouritesContainer}>
-            <Text style={styles.favouritesTitle}>Favourites:</Text>
-              { favourites.map(this.renderList) }
-          </View>
+            <FavouritesList
+              favourites={favourites}
+              handleFavouriteClick={this.handleFavouriteClick}
+            />
           )
         }
       </SafeAreaView>
@@ -133,26 +120,12 @@ const styles = StyleSheet.create({
     minWidth: 350,
     paddingLeft: 30,
     paddingRight: 30,
-  },
-  searchBarInput: {
-    paddingLeft: 10,
-    borderColor: colourUtils.apple,
+    fontSize: 16,
   },
   searchButton: {
     flex: 2,
     marginTop: 50,
   },
-  favouritesTitle: {
-    color: colourUtils.apple,
-    fontSize: 18,
-    marginBottom: 15
-  },
-  favouritesContainer: {
-    width: 300
-  },
-  listItem: {
-    marginBottom: 3
-  }
 });
 
 const mapStateToProps = (state) => {
@@ -166,6 +139,5 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   fetchDdragonVersionAction: fetchDdragonVersion,
   storeSummonerNameAction: storeSummonerName,
-  storeSummonerInfoAction: storeSummonerInfo,
   fetchSummonerIdAction: fetchSummonerId
 })(Search);

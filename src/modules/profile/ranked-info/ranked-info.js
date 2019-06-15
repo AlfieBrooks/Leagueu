@@ -2,6 +2,7 @@ import React from 'react';
 import {
   StyleSheet, Text, View, Image
 } from 'react-native';
+import FadeIn from 'react-native-fade-in-image';
 
 import colourUtils from '../../../utils/styles/colours';
 import rankedQueueTypes from '../../../utils/constants/ranked-queue-type';
@@ -17,7 +18,12 @@ export const RankedInfo = ({
   rankIcon,
 }) => (
   <View style={styles.container}>
-    <Image style={styles.image} source={{ uri: rankIcon }} />
+    <FadeIn placeholderStyle={styles.fadeImage}>
+      <Image
+        style={styles.image}
+        source={{ uri: rankIcon }}
+      />
+    </FadeIn>
     <Text style={styles.title}>{rankedQueueTypes[queueType]}</Text>
     <Text style={styles.text}>{`${tier} ${rank} (${leaguePoints} LP)`}</Text>
     <Text style={styles.text}>{`${wins}W / ${losses}L`}</Text>
@@ -32,6 +38,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colourUtils.linkWater,
   },
+  fadeImage: {
+    backgroundColor: colourUtils.linkWater,
+  },
   image: {
     height: 150,
     width: 150,
@@ -44,7 +53,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: colourUtils.apple,
-  }
+  },
 });
 
 export default RankedInfo;

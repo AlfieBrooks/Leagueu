@@ -4,8 +4,9 @@ import {
 } from 'react-native';
 import TouchableScale from 'react-native-touchable-scale';
 import { Icon } from 'react-native-elements';
+import FadeIn from 'react-native-fade-in-image';
 
-import colourUtils from '../../../utils/styles/colours';
+import colourUtils from '../../utils/styles/colours';
 
 export const ProfileHeader = ({
   summonerName,
@@ -31,10 +32,12 @@ export const ProfileHeader = ({
         size={36}
         color={colourUtils.limerick}
       />
-      <Image
-        style={styles.profileIcon}
-        source={{ uri: profileIconURL }}
-      />
+      <FadeIn placeholderStyle={styles.fadeImage}>
+        <Image
+          style={styles.profileIcon}
+          source={{ uri: profileIconURL }}
+        />
+      </FadeIn>
     </View>
   </View>
 );
@@ -58,6 +61,9 @@ const styles = StyleSheet.create({
   summonerLevelText: {
     marginBottom: 15,
     color: colourUtils.linkWater,
+  },
+  fadeImage: {
+    backgroundColor: colourUtils.seaBlue,
   },
   profileIcon: {
     borderRadius: 60,

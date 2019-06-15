@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     fontFamily: 'san-serif'
   },
   headerTitle: {
+    fontSize: 18,
     color: colourUtils.linkWater
   }
 });

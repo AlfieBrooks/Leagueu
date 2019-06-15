@@ -1,7 +1,6 @@
 import {
   FETCH_DDRAGON_VERSION,
   STORE_SUMMONER_NAME,
-  STORE_SUMMONER_INFO,
   FETCH_SUMMONER_ID_DATA_STARTED,
   FETCH_SUMMONER_ID_DATA_SUCCESS,
   FETCH_SUMMONER_ID_DATA_FAILED
@@ -18,12 +17,7 @@ const searchReducer = (state = initialState, action) => {
     case FETCH_DDRAGON_VERSION:
       return { ...state, ddragonVersion: action.payload };
     case STORE_SUMMONER_NAME:
-      return { ...state, searchSummonerName: action.payload };
-    case STORE_SUMMONER_INFO:
-      return {
-        ...state,
-        ...action.payload
-      };
+      return { ...state, summonerName: action.payload };
     case FETCH_SUMMONER_ID_DATA_STARTED:
       return {
         ...state,
