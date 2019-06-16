@@ -36,6 +36,7 @@ class Profile extends React.Component {
     const {
       favourites,
       addToFavouritesAction,
+      region,
       summonerName,
       summonerId,
       profileIconURL,
@@ -43,14 +44,14 @@ class Profile extends React.Component {
     } = this.props;
 
     if (favourites.length + 1 > MAX_FAVOURITES) {
-      errorAlert('You can only add a maximum of 3 favourites');
+      errorAlert('You can only have a maximum of 3 favourites');
     } else {
       addToFavouritesAction({
+        region,
         summonerName,
         summonerId,
         profileIconURL,
         summonerLevel,
-        region: regionMapping.EUW,
       });
     }
   }
@@ -140,6 +141,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
   const { searchReducer, rankedReducer, favouriteReducer } = state;
   return {
+    region: searchReducer.region,
     summonerName: searchReducer.summonerName,
     summonerId: searchReducer.summonerId,
     profileIconURL: searchReducer.profileIconURL,

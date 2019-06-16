@@ -1,23 +1,33 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { ListItem } from 'react-native-elements';
+import { ListItem, Icon } from 'react-native-elements';
 import TouchableScale from 'react-native-touchable-scale';
 
 import colourUtils from '../../utils/styles/colours';
 
 export const FavouritesList = ({ favourites, handleFavouriteClick }) => (
   <View style={styles.favouritesContainer}>
-    <Text style={styles.favouritesTitle}>Favourites:</Text>
+    <View style={styles.favouritesTitle}>
+      <Icon
+        name="star"
+        type="font-awesome"
+        size={20}
+        color={colourUtils.apple}
+      />
+      <Text style={styles.favouritesText}>Favourites:</Text>
+    </View>
     { favourites.map(favourite => (
       <ListItem
         Component={TouchableScale}
         friction={90}
         tension={100}
-        activeScale={0.95}
+        activeScale={0.8}
         style={styles.listItem}
         key={favourite.summonerId}
         title={favourite.summonerName}
-        onPress={() => handleFavouriteClick(favourite.summonerName)}
+        titleStyle={styles.listItemTitle}
+        clearButtonMode="always"
+        onPress={() => handleFavouriteClick(favourite.region, favourite.summonerName)}
         leftAvatar={{ source: { uri: favourite.profileIconURL } }}
         chevron
       />
@@ -28,15 +38,23 @@ export const FavouritesList = ({ favourites, handleFavouriteClick }) => (
 
 const styles = StyleSheet.create({
   favouritesTitle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 15
+  },
+  favouritesText: {
     color: colourUtils.apple,
     fontSize: 18,
-    marginBottom: 15
+    marginLeft: 5
   },
   favouritesContainer: {
     width: 300
   },
   listItem: {
-    marginBottom: 3
+    marginBottom: 3,
+  },
+  listItemTitle: {
+    color: colourUtils.darkGray
   }
 });
 

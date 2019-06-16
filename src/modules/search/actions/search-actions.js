@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import {
   FETCH_DDRAGON_VERSION,
-  STORE_SUMMONER_NAME,
+  STORE_REGION,
   FETCH_SUMMONER_ID_DATA_STARTED,
   FETCH_SUMMONER_ID_DATA_SUCCESS,
   FETCH_SUMMONER_ID_DATA_FAILED
@@ -59,9 +59,9 @@ export const fetchSummonerId = (region, summonerName) => {
   });
 };
 
-export const storeSummonerName = summonerName => (dispatch) => {
+export const storeRegion = region => (dispatch) => {
   dispatch({
-    type: STORE_SUMMONER_NAME,
-    payload: summonerName
+    type: STORE_REGION,
+    payload: region
   });
 };

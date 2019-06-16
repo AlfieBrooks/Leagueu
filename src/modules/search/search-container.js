@@ -1,9 +1,17 @@
 import React from 'react';
 import {
-  StyleSheet, Button, StatusBar, View, TextInput
+  StyleSheet,
+  Button,
+  StatusBar,
+  View,
+  Text,
+  Keyboard,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
 } from 'react-native';
-import { SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux';
+import ReactNativePickerModule from 'react-native-picker-module';
+import { Hoshi } from 'react-native-textinput-effects';
 import { Icon } from 'react-native-elements';
 
 import colourUtils from '../../utils/styles/colours';
@@ -13,7 +21,7 @@ import { Logo } from '../logo/logo';
 import { Loading } from '../loading/loading';
 import { FavouritesList } from '../favourites-list/favourites-list';
 import {
-  fetchDdragonVersion, storeSummonerName, fetchSummonerId
+  fetchDdragonVersion, storeRegion, fetchSummonerId
 } from './actions/search-actions';
 
 class Search extends React.Component {
@@ -23,7 +31,8 @@ class Search extends React.Component {
 
   state = {
     text: '',
-    // region: regionMapping.EUW
+    region: 'EUW',
+    selectedIndex: 2
   };
 
   componentDidMount() {
@@ -31,22 +40,26 @@ class Search extends React.Component {
     // fetchDdragonVersionAction();
   }
 
-  handleFavouriteClick = (summonerName) => {
+  handleFavouriteClick = (region, summonerName) => {
     const { fetchSummonerIdAction, navigation: { navigate } } = this.props;
-    return fetchSummonerIdAction(regionMapping.EUW, summonerName)
+
+    return fetchSummonerIdAction(region, summonerName)
       .then(() => navigate('Profile'))
       .catch(err => errorAlert(err.message));
   }
 
   handleSubmit() {
-    const { text } = this.state;
-    const { storeSummonerNameAction, fetchSummonerIdAction, navigation: { navigate } } = this.props;
+    const { text, region } = this.state;
+    const { storeRegionAction, fetchSummonerIdAction, navigation: { navigate } } = this.props;
 
     if (!text) return errorAlert('Please enter a name');
 
-    storeSummonerNameAction(text);
-    return fetchSummonerIdAction(regionMapping.EUW, text)
-      .then(() => navigate('Profile'))
+    storeRegionAction(regionMapping[region]);
+    return fetchSummonerIdAction(regionMapping[region], text)
+      .then(() => {
+        navigate('Profile');
+        this.setState({ text: '' });
+      })
       .catch(err => errorAlert(err.message));
   }
 
@@ -55,28 +68,39 @@ class Search extends React.Component {
   )
 
   renderInput() {
-    const { text } = this.state;
+    const { text, region } = this.state;
     return (
       <React.Fragment>
-        <TextInput
-          style={styles.searchBar}
-          placeholder="Enter Summoner Name"
-          onChangeText={input => this.setState({ text: input })}
-          onSubmitEditing={() => this.handleSubmit()}
-          value={text}
-          returnKeyType="search"
-          leftIcon={(
-            <Icon
-              name="user"
-              size={24}
-              type="font-awesome"
-              color={colourUtils.apple}
-            />
-        )}
-        />
+        <TouchableOpacity
+          style={styles.regionPicker}
+          onPress={() => { this.pickerRef.show(); }}
+        >
+          <Text style={styles.regionText}>{region}</Text>
+          <Icon
+            name="chevron-down"
+            type="font-awesome"
+            size={16}
+            color={colourUtils.apple}
+            containerStyle={styles.regionIcon}
+          />
+        </TouchableOpacity>
+        <View style={styles.searchBar}>
+          <Hoshi
+            label="Summoner Name"
+            borderColor={colourUtils.limerick}
+            borderHeight={3}
+            inputPadding={16}
+            backgroundColor={colourUtils.linkWater}
+            onChangeText={input => this.setState({ text: input })}
+            onSubmitEditing={() => this.handleSubmit()}
+            value={text}
+            returnKeyType="search"
+          />
+        </View>
         <Button
           style={styles.searchButton}
           title="Search"
+          color={colourUtils.queenBlue}
           onPress={() => this.handleSubmit()}
         />
       </React.Fragment>
@@ -85,22 +109,39 @@ class Search extends React.Component {
 
   render() {
     const { searchLoading, favourites } = this.props;
+    const { selectedIndex } = this.state;
+
     return (
-      <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="dark-content" />
-        <Logo />
-        <View style={styles.inputContainer}>
-          { searchLoading ? this.renderLoading() : this.renderInput() }
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <View style={styles.container}>
+          <StatusBar barStyle="dark-content" />
+          <Logo />
+          <View style={styles.inputContainer}>
+            { searchLoading ? this.renderLoading() : this.renderInput() }
+          </View>
+          <View style={styles.favourites}>
+            { favourites.length > 0
+            && (
+              <FavouritesList
+                favourites={favourites}
+                handleFavouriteClick={this.handleFavouriteClick}
+              />
+            )}
+          </View>
+          <ReactNativePickerModule
+            pickerRef={e => this.pickerRef = e} // eslint-disable-line no-return-assign
+            value={selectedIndex}
+            title="Select a Region"
+            items={Object.keys(regionMapping)}
+            onValueChange={(value, index) => {
+              this.setState({
+                region: value,
+                selectedIndex: index
+              });
+            }}
+          />
         </View>
-        { favourites.length > 0
-          && (
-            <FavouritesList
-              favourites={favourites}
-              handleFavouriteClick={this.handleFavouriteClick}
-            />
-          )
-        }
-      </SafeAreaView>
+      </TouchableWithoutFeedback>
     );
   }
 }
@@ -111,21 +152,30 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    backgroundColor: colourUtils.linkWater,
+    backgroundColor: colourUtils.linkWater
+  },
+  regionText: {
+    color: colourUtils.darkGray
+  },
+  regionPicker: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 15
+  },
+  regionIcon: {
+    marginLeft: 5
   },
   inputContainer: {
     height: 100,
   },
   searchBar: {
-    minWidth: 350,
-    paddingLeft: 30,
-    paddingRight: 30,
-    fontSize: 16,
+    minWidth: 290,
+    marginBottom: 10
   },
-  searchButton: {
-    flex: 2,
-    marginTop: 50,
-  },
+  favourites: {
+    minHeight: 100
+  }
 });
 
 const mapStateToProps = (state) => {
@@ -138,6 +188,6 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   fetchDdragonVersionAction: fetchDdragonVersion,
-  storeSummonerNameAction: storeSummonerName,
+  storeRegionAction: storeRegion,
   fetchSummonerIdAction: fetchSummonerId
 })(Search);
