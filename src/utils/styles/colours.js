@@ -1,11 +1,10 @@
 export default {
-  white: '#fff',
-  gray: '#ebebeb',
-  darkGray: '#6a7989',
-  linkWater: '#EBF2FA',
+  purple: '#A593E0',
+  gray: '#E0E3DA',
+  darkGray: '#6A7989',
+  linkWater: '#F8FAFF',
+  linkWaterAlt: '#EBF2FA',
+  navy: '#566270',
+  white: '#FFF',
   seaBlue: '#05668D',
-  queenBlue: '#427AA1',
-  limerick: '#A5BE00',
-  apple: '#679436',
-  gold: '#FFD700'
 };

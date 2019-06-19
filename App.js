@@ -46,7 +46,7 @@ export default class App extends React.Component {
         initialRouteName: 'Search',
         defaultNavigationOptions: {
           headerStyle: {
-            backgroundColor: colourUtils.seaBlue,
+            backgroundColor: colourUtils.navy,
           },
           headerTintColor: colourUtils.white,
           headerTitle: <Text style={styles.headerTitle}>Leaguéu</Text>

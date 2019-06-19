@@ -8,22 +8,22 @@ import {
 } from '../actions/ranked-action-constants';
 import rankedTransformer from '../transformers/ranked-transfomer';
 import rankedQueueTypes from '../../../utils/constants/ranked-queue-type';
-import rankTypes from '../../../utils/constants/rank-types';
+import rankedUrlTypes from '../../../utils/constants/ranked-url-types';
 
 const initialState = {
   loading: false,
   error: null,
   rankedSolo: {
     queueType: rankedQueueTypes.RANKED_SOLO_5x5,
-    tier: rankTypes.UNRANKED
+    tier: rankedUrlTypes.UNRANKED
   },
   rankedFlexSR: {
     queueType: rankedQueueTypes.RANKED_FLEX_SR,
-    tier: rankTypes.UNRANKED
+    tier: rankedUrlTypes.UNRANKED
   },
   rankedFlexTT: {
     queueType: rankedQueueTypes.RANKED_FLEX_TT,
-    tier: rankTypes.UNRANKED
+    tier: rankedUrlTypes.UNRANKED
   }
 };
 

@@ -30,7 +30,7 @@ export const ProfileHeader = ({
         name={isAFavourite ? 'star' : 'star-o'}
         type="font-awesome"
         size={36}
-        color={colourUtils.limerick}
+        color={colourUtils.seaBlue}
       />
       <FadeIn placeholderStyle={styles.fadeImage}>
         <Image
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   backgroundContainer: {
     maxHeight: 210,
     alignItems: 'center',
-    backgroundColor: colourUtils.apple,
+    backgroundColor: colourUtils.purple,
   },
   summonerNameText: {
     fontSize: 36,

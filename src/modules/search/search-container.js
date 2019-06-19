@@ -80,14 +80,14 @@ class Search extends React.Component {
             name="chevron-down"
             type="font-awesome"
             size={16}
-            color={colourUtils.apple}
+            color={colourUtils.purple}
             containerStyle={styles.regionIcon}
           />
         </TouchableOpacity>
         <View style={styles.searchBar}>
           <Hoshi
             label="Summoner Name"
-            borderColor={colourUtils.limerick}
+            borderColor={colourUtils.purple}
             borderHeight={3}
             inputPadding={16}
             backgroundColor={colourUtils.linkWater}
@@ -100,7 +100,7 @@ class Search extends React.Component {
         <Button
           style={styles.searchButton}
           title="Search"
-          color={colourUtils.queenBlue}
+          color={colourUtils.seaBlue}
           onPress={() => this.handleSubmit()}
         />
       </React.Fragment>

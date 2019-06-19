@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 import colourUtils from '../../utils/styles/colours';
 import regionMapping from '../../utils/constants/region-mapping';
-import rankTypes from '../../utils/constants/rank-types';
+import rankedUrlTypes from '../../utils/constants/ranked-url-types';
 import { ProfileHeader } from '../profile-header/profile-header';
 import { UnrankedRankedInfo } from './ranked-info/unranked-ranked-info';
 import { RankedInfo } from './ranked-info/ranked-info';
@@ -93,7 +93,7 @@ class Profile extends React.Component {
         />
         <View style={styles.rankedContainer}>
           { [rankedSolo, rankedFlexSR].map((rank) => {
-            if (rank.tier === rankTypes.UNRANKED) {
+            if (rank.tier === rankedUrlTypes.UNRANKED) {
               return (
                 <UnrankedRankedInfo
                   key={rank.queueType}

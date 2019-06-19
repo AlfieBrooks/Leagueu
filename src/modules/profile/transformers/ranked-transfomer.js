@@ -1,9 +1,9 @@
-import rankTypes from '../../../utils/constants/rank-types';
+import rankedUrlTypes from '../../../utils/constants/ranked-url-types';
 
 export default function rankedTransformer({
   queueType, wins, losses, rank, tier, leaguePoints
 }) {
-  const rankId = rankTypes[tier + rank] || 'default';
+  const rankId = rankedUrlTypes[tier + rank] || 'default';
   return {
     queueType,
     wins,

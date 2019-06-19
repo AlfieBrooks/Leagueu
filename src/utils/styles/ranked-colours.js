@@ -1,0 +1,11 @@
+export default {
+  IRON: '#574D4F',
+  BRONZE: '#8C523A',
+  SILVER: '#7986A3',
+  GOLD: '#CD8837',
+  PLATINUM: '#4E9996',
+  DIAMOND: '#576BCE',
+  MASTER: '#9D48E0',
+  GRANDMASTER: '#D94444',
+  CHALLENGER: '#F4C874'
+};

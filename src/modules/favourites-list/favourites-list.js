@@ -12,7 +12,7 @@ export const FavouritesList = ({ favourites, handleFavouriteClick }) => (
         name="star"
         type="font-awesome"
         size={20}
-        color={colourUtils.apple}
+        color={colourUtils.purple}
       />
       <Text style={styles.favouritesText}>Favourites:</Text>
     </View>
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     marginBottom: 15
   },
   favouritesText: {
-    color: colourUtils.apple,
+    color: colourUtils.purple,
     fontSize: 18,
     marginLeft: 5
   },
