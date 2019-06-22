@@ -1,4 +1,5 @@
 import axios from 'axios';
+import errorAlert from '../../../utils/alert-utils';
 
 import {
   FETCH_DDRAGON_VERSION,
@@ -18,9 +19,12 @@ export const fetchSummonerIdSuccess = data => ({
   payload: data
 });
 
-export const fetchSummonerIdFailed = err => ({
+export const fetchSummonerIdFailed = (errMessage, errStatusCode) => ({
   type: FETCH_SUMMONER_ID_DATA_FAILED,
-  payload: err
+  payload: {
+    errMessage,
+    errStatusCode
+  }
 });
 
 export const fetchDdragonVersionSuccess = version => ({
@@ -37,7 +41,7 @@ export const fetchDdragonVersion = () => {
         dispatch(fetchDdragonVersionSuccess(response.data[0]));
       })
       .catch((err) => {
-        console.error(err);
+        console.log(err);
       });
   };
 };
@@ -53,7 +57,10 @@ export const fetchSummonerId = (region, summonerName) => {
         resolve(response);
       })
       .catch((err) => {
-        dispatch(fetchSummonerIdFailed(err.message));
+        if (err.response) {
+          dispatch(fetchSummonerIdFailed(err.message, err.response.status));
+          errorAlert(err.message, err.response.status);
+        }
         reject(err);
       });
   });

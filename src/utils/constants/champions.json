@@ -1,0 +1,578 @@
+[
+  {
+    "name": "Aatrox",
+    "championId": "266"
+  },
+  {
+    "name": "Ahri",
+    "championId": "103"
+  },
+  {
+    "name": "Akali",
+    "championId": "84"
+  },
+  {
+    "name": "Alistar",
+    "championId": "12"
+  },
+  {
+    "name": "Amumu",
+    "championId": "32"
+  },
+  {
+    "name": "Anivia",
+    "championId": "34"
+  },
+  {
+    "name": "Annie",
+    "championId": "1"
+  },
+  {
+    "name": "Ashe",
+    "championId": "22"
+  },
+  {
+    "name": "Aurelion Sol",
+    "championId": "136"
+  },
+  {
+    "name": "Azir",
+    "championId": "268"
+  },
+  {
+    "name": "Bard",
+    "championId": "432"
+  },
+  {
+    "name": "Blitzcrank",
+    "championId": "53"
+  },
+  {
+    "name": "Brand",
+    "championId": "63"
+  },
+  {
+    "name": "Braum",
+    "championId": "201"
+  },
+  {
+    "name": "Caitlyn",
+    "championId": "51"
+  },
+  {
+    "name": "Camille",
+    "championId": "164"
+  },
+  {
+    "name": "Cassiopeia",
+    "championId": "69"
+  },
+  {
+    "name": "Cho'Gath",
+    "championId": "31"
+  },
+  {
+    "name": "Corki",
+    "championId": "42"
+  },
+  {
+    "name": "Darius",
+    "championId": "122"
+  },
+  {
+    "name": "Diana",
+    "championId": "131"
+  },
+  {
+    "name": "Draven",
+    "championId": "119"
+  },
+  {
+    "name": "Dr. Mundo",
+    "championId": "36"
+  },
+  {
+    "name": "Ekko",
+    "championId": "245"
+  },
+  {
+    "name": "Elise",
+    "championId": "60"
+  },
+  {
+    "name": "Evelynn",
+    "championId": "28"
+  },
+  {
+    "name": "Ezreal",
+    "championId": "81"
+  },
+  {
+    "name": "Fiddlesticks",
+    "championId": "9"
+  },
+  {
+    "name": "Fiora",
+    "championId": "114"
+  },
+  {
+    "name": "Fizz",
+    "championId": "105"
+  },
+  {
+    "name": "Galio",
+    "championId": "3"
+  },
+  {
+    "name": "Gangplank",
+    "championId": "41"
+  },
+  {
+    "name": "Garen",
+    "championId": "86"
+  },
+  {
+    "name": "Gnar",
+    "championId": "150"
+  },
+  {
+    "name": "Gragas",
+    "championId": "79"
+  },
+  {
+    "name": "Graves",
+    "championId": "104"
+  },
+  {
+    "name": "Hecarim",
+    "championId": "120"
+  },
+  {
+    "name": "Heimerdinger",
+    "championId": "74"
+  },
+  {
+    "name": "Illaoi",
+    "championId": "420"
+  },
+  {
+    "name": "Irelia",
+    "championId": "39"
+  },
+  {
+    "name": "Ivern",
+    "championId": "427"
+  },
+  {
+    "name": "Janna",
+    "championId": "40"
+  },
+  {
+    "name": "Jarvan IV",
+    "championId": "59"
+  },
+  {
+    "name": "Jax",
+    "championId": "24"
+  },
+  {
+    "name": "Jayce",
+    "championId": "126"
+  },
+  {
+    "name": "Jhin",
+    "championId": "202"
+  },
+  {
+    "name": "Jinx",
+    "championId": "222"
+  },
+  {
+    "name": "Kai'Sa",
+    "championId": "145"
+  },
+  {
+    "name": "Kalista",
+    "championId": "429"
+  },
+  {
+    "name": "Karma",
+    "championId": "43"
+  },
+  {
+    "name": "Karthus",
+    "championId": "30"
+  },
+  {
+    "name": "Kassadin",
+    "championId": "38"
+  },
+  {
+    "name": "Katarina",
+    "championId": "55"
+  },
+  {
+    "name": "Kayle",
+    "championId": "10"
+  },
+  {
+    "name": "Kayn",
+    "championId": "141"
+  },
+  {
+    "name": "Kennen",
+    "championId": "85"
+  },
+  {
+    "name": "Kha'Zix",
+    "championId": "121"
+  },
+  {
+    "name": "Kindred",
+    "championId": "203"
+  },
+  {
+    "name": "Kled",
+    "championId": "240"
+  },
+  {
+    "name": "Kog'Maw",
+    "championId": "96"
+  },
+  {
+    "name": "LeBlanc",
+    "championId": "7"
+  },
+  {
+    "name": "Lee Sin",
+    "championId": "64"
+  },
+  {
+    "name": "Leona",
+    "championId": "89"
+  },
+  {
+    "name": "Lissandra",
+    "championId": "127"
+  },
+  {
+    "name": "Lucian",
+    "championId": "236"
+  },
+  {
+    "name": "Lulu",
+    "championId": "117"
+  },
+  {
+    "name": "Lux",
+    "championId": "99"
+  },
+  {
+    "name": "Malphite",
+    "championId": "54"
+  },
+  {
+    "name": "Malzahar",
+    "championId": "90"
+  },
+  {
+    "name": "Maokai",
+    "championId": "57"
+  },
+  {
+    "name": "Master Yi",
+    "championId": "11"
+  },
+  {
+    "name": "Miss Fortune",
+    "championId": "21"
+  },
+  {
+    "name": "Wukong",
+    "championId": "62"
+  },
+  {
+    "name": "Mordekaiser",
+    "championId": "82"
+  },
+  {
+    "name": "Morgana",
+    "championId": "25"
+  },
+  {
+    "name": "Nami",
+    "championId": "267"
+  },
+  {
+    "name": "Nasus",
+    "championId": "75"
+  },
+  {
+    "name": "Nautilus",
+    "championId": "111"
+  },
+  {
+    "name": "Neeko",
+    "championId": "518"
+  },
+  {
+    "name": "Nidalee",
+    "championId": "76"
+  },
+  {
+    "name": "Nocturne",
+    "championId": "56"
+  },
+  {
+    "name": "Nunu & Willump",
+    "championId": "20"
+  },
+  {
+    "name": "Olaf",
+    "championId": "2"
+  },
+  {
+    "name": "Orianna",
+    "championId": "61"
+  },
+  {
+    "name": "Ornn",
+    "championId": "516"
+  },
+  {
+    "name": "Pantheon",
+    "championId": "80"
+  },
+  {
+    "name": "Poppy",
+    "championId": "78"
+  },
+  {
+    "name": "Pyke",
+    "championId": "555"
+  },
+  {
+    "name": "Quinn",
+    "championId": "133"
+  },
+  {
+    "name": "Rakan",
+    "championId": "497"
+  },
+  {
+    "name": "Rammus",
+    "championId": "33"
+  },
+  {
+    "name": "Rek'Sai",
+    "championId": "421"
+  },
+  {
+    "name": "Renekton",
+    "championId": "58"
+  },
+  {
+    "name": "Rengar",
+    "championId": "107"
+  },
+  {
+    "name": "Riven",
+    "championId": "92"
+  },
+  {
+    "name": "Rumble",
+    "championId": "68"
+  },
+  {
+    "name": "Ryze",
+    "championId": "13"
+  },
+  {
+    "name": "Sejuani",
+    "championId": "113"
+  },
+  {
+    "name": "Shaco",
+    "championId": "35"
+  },
+  {
+    "name": "Shen",
+    "championId": "98"
+  },
+  {
+    "name": "Shyvana",
+    "championId": "102"
+  },
+  {
+    "name": "Singed",
+    "championId": "27"
+  },
+  {
+    "name": "Sion",
+    "championId": "14"
+  },
+  {
+    "name": "Sivir",
+    "championId": "15"
+  },
+  {
+    "name": "Skarner",
+    "championId": "72"
+  },
+  {
+    "name": "Sona",
+    "championId": "37"
+  },
+  {
+    "name": "Soraka",
+    "championId": "16"
+  },
+  {
+    "name": "Swain",
+    "championId": "50"
+  },
+  {
+    "name": "Sylas",
+    "championId": "517"
+  },
+  {
+    "name": "Syndra",
+    "championId": "134"
+  },
+  {
+    "name": "Tahm Kench",
+    "championId": "223"
+  },
+  {
+    "name": "Taliyah",
+    "championId": "163"
+  },
+  {
+    "name": "Talon",
+    "championId": "91"
+  },
+  {
+    "name": "Taric",
+    "championId": "44"
+  },
+  {
+    "name": "Teemo",
+    "championId": "17"
+  },
+  {
+    "name": "Thresh",
+    "championId": "412"
+  },
+  {
+    "name": "Tristana",
+    "championId": "18"
+  },
+  {
+    "name": "Trundle",
+    "championId": "48"
+  },
+  {
+    "name": "Tryndamere",
+    "championId": "23"
+  },
+  {
+    "name": "Twisted Fate",
+    "championId": "4"
+  },
+  {
+    "name": "Twitch",
+    "championId": "29"
+  },
+  {
+    "name": "Udyr",
+    "championId": "77"
+  },
+  {
+    "name": "Urgot",
+    "championId": "6"
+  },
+  {
+    "name": "Varus",
+    "championId": "110"
+  },
+  {
+    "name": "Vayne",
+    "championId": "67"
+  },
+  {
+    "name": "Veigar",
+    "championId": "45"
+  },
+  {
+    "name": "Vel'Koz",
+    "championId": "161"
+  },
+  {
+    "name": "Vi",
+    "championId": "254"
+  },
+  {
+    "name": "Viktor",
+    "championId": "112"
+  },
+  {
+    "name": "Vladimir",
+    "championId": "8"
+  },
+  {
+    "name": "Volibear",
+    "championId": "106"
+  },
+  {
+    "name": "Warwick",
+    "championId": "19"
+  },
+  {
+    "name": "Xayah",
+    "championId": "498"
+  },
+  {
+    "name": "Xerath",
+    "championId": "101"
+  },
+  {
+    "name": "Xin Zhao",
+    "championId": "5"
+  },
+  {
+    "name": "Yasuo",
+    "championId": "157"
+  },
+  {
+    "name": "Yorick",
+    "championId": "83"
+  },
+  {
+    "name": "Yuumi",
+    "championId": "350"
+  },
+  {
+    "name": "Zac",
+    "championId": "154"
+  },
+  {
+    "name": "Zed",
+    "championId": "238"
+  },
+  {
+    "name": "Ziggs",
+    "championId": "115"
+  },
+  {
+    "name": "Zilean",
+    "championId": "26"
+  },
+  {
+    "name": "Zoe",
+    "championId": "142"
+  },
+  {
+    "name": "Zyra",
+    "championId": "143"
+  }
+]

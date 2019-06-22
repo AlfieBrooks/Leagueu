@@ -2,7 +2,6 @@ import React from 'react';
 import {
   StyleSheet, StatusBar, View
 } from 'react-native';
-import { SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux';
 
 import colourUtils from '../../utils/styles/colours';
@@ -14,18 +13,24 @@ import { RankedInfo } from './ranked-info/ranked-info';
 import { fetchRankedData, clearRankedData } from './actions/ranked-actions';
 import { addToFavourites, removeFromFavourites } from './actions/favourite-actions';
 import errorAlert from '../../utils/alert-utils';
+import { fetchChampionData, clearChampionData } from './actions/champion-actions';
+import { ChampionInfo } from './champions/champion-info';
 
 const MAX_FAVOURITES = 3;
 
 class Profile extends React.Component {
   componentDidMount() {
-    const { fetchRankedDataAction, summonerId } = this.props;
+    const {
+      fetchRankedDataAction, fetchChampionDataAction, summonerId
+    } = this.props;
     fetchRankedDataAction(regionMapping.EUW, summonerId);
+    fetchChampionDataAction(regionMapping.EUW, summonerId);
   }
 
   componentWillUnmount() {
-    const { clearRankedDataAction } = this.props;
+    const { clearRankedDataAction, clearChampionDataAction } = this.props;
     clearRankedDataAction();
+    clearChampionDataAction();
   }
 
   isAFavourite = (favourites, summonerId) => favourites && favourites.some(
@@ -79,10 +84,11 @@ class Profile extends React.Component {
       rankedSolo,
       rankedFlexSR,
       favourites,
+      champions,
     } = this.props;
 
     return (
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <StatusBar barStyle="light-content" />
         <ProfileHeader
           summonerName={summonerName}
@@ -91,34 +97,48 @@ class Profile extends React.Component {
           toggleFavourite={this.toggleFavourite}
           isAFavourite={this.isAFavourite(favourites, summonerId)}
         />
-        <View style={styles.rankedContainer}>
-          { [rankedSolo, rankedFlexSR].map((rank) => {
-            if (rank.tier === rankedUrlTypes.UNRANKED) {
+        <View style={styles.bottomContainer}>
+          <View style={styles.rankedContainer}>
+            { [rankedSolo, rankedFlexSR].map((rank) => {
+              if (rank.tier === rankedUrlTypes.UNRANKED) {
+                return (
+                  <UnrankedRankedInfo
+                    key={rank.queueType}
+                    queueType={rank.queueType}
+                    rankIcon={rank.rankIcon}
+                  />
+                );
+              }
               return (
-                <UnrankedRankedInfo
+                <RankedInfo
                   key={rank.queueType}
                   queueType={rank.queueType}
+                  wins={rank.wins}
+                  losses={rank.losses}
+                  winRatio={rank.winRatio}
+                  rank={rank.rank}
+                  tier={rank.tier}
+                  leaguePoints={rank.leaguePoints}
                   rankIcon={rank.rankIcon}
                 />
               );
-            }
-            return (
-              <RankedInfo
-                key={rank.queueType}
-                queueType={rank.queueType}
-                wins={rank.wins}
-                losses={rank.losses}
-                winRatio={rank.winRatio}
-                rank={rank.rank}
-                tier={rank.tier}
-                leaguePoints={rank.leaguePoints}
-                rankIcon={rank.rankIcon}
-              />
-            );
-          })
+            })
         }
+          </View>
+          <View style={styles.championContiner}>
+            { champions.map(champion => (
+              <ChampionInfo
+                key={champion.championId}
+                championLevel={champion.championLevel}
+                championPoints={champion.championPoints}
+                championName={champion.championName}
+                championImg={champion.championImg}
+              />
+            ))
+            }
+          </View>
         </View>
-      </SafeAreaView>
+      </View>
     );
   }
 }
@@ -129,17 +149,22 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     backgroundColor: colourUtils.linkWater,
   },
-  rankedContainer: {
+  bottomContainer: {
     flex: 1,
+    justifyContent: 'space-between',
+  },
+  rankedContainer: {
     flexDirection: 'row',
-    alignItems: 'stretch',
-    marginLeft: 15,
-    marginRight: 15,
+  },
+  championContiner: {
+    flexDirection: 'row',
   }
 });
 
 const mapStateToProps = (state) => {
-  const { searchReducer, rankedReducer, favouriteReducer } = state;
+  const {
+    searchReducer, rankedReducer, favouriteReducer, championReducer
+  } = state;
   return {
     region: searchReducer.region,
     summonerName: searchReducer.summonerName,
@@ -150,12 +175,15 @@ const mapStateToProps = (state) => {
     rankedFlexSR: rankedReducer.rankedFlexSR,
     rankedFlexTT: rankedReducer.rankedFlexTT,
     favourites: favouriteReducer.favourites,
+    champions: championReducer.champions,
   };
 };
 
 export default connect(mapStateToProps, {
   fetchRankedDataAction: fetchRankedData,
+  fetchChampionDataAction: fetchChampionData,
   clearRankedDataAction: clearRankedData,
+  clearChampionDataAction: clearChampionData,
   addToFavouritesAction: addToFavourites,
   removeFromFavouritesAction: removeFromFavourites,
 })(Profile);

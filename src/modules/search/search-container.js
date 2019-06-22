@@ -45,7 +45,7 @@ class Search extends React.Component {
 
     return fetchSummonerIdAction(region, summonerName)
       .then(() => navigate('Profile'))
-      .catch(err => errorAlert(err.message));
+      .catch(err => console.log(err));
   }
 
   handleSubmit() {
@@ -54,13 +54,13 @@ class Search extends React.Component {
 
     if (!text) return errorAlert('Please enter a name');
 
-    storeRegionAction(regionMapping[region]);
     return fetchSummonerIdAction(regionMapping[region], text)
       .then(() => {
+        storeRegionAction(regionMapping[region]);
         navigate('Profile');
         this.setState({ text: '' });
       })
-      .catch(err => errorAlert(err.message));
+      .catch(err => console.log(err));
   }
 
   renderLoading = () => (

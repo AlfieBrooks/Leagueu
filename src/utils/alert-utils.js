@@ -1,10 +1,16 @@
 import { Alert } from 'react-native';
 
-export default function errorAlert(errorMessage) {
+const errorCodeMap = {
+  403: 'API Key not authorised',
+  404: 'Summoner not found',
+  500: 'Internal server error'
+};
+
+export default function errorAlert(errMessage, errStatusCode) {
   return (
     Alert.alert(
       'Whoops!',
-      errorMessage || undefined,
+      errorCodeMap[errStatusCode] || errMessage,
       [
         { text: 'OK' },
       ],

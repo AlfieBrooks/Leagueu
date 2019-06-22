@@ -44,9 +44,8 @@ export const ProfileHeader = ({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    maxHeight: 270,
     alignItems: 'stretch',
+    minHeight: 270
   },
   backgroundContainer: {
     maxHeight: 210,

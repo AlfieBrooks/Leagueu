@@ -4,7 +4,7 @@ export const storePersistantData = async (key, value) => {
   try {
     await AsyncStorage.setItem(key, JSON.stringify(value));
   } catch (err) {
-    console.error(err);
+    console.log(err);
   }
 };
 
@@ -16,7 +16,7 @@ export const getPersistantData = async (key) => {
     }
     return [];
   } catch (err) {
-    console.error(err);
+    console.log(err);
   }
   return null;
 };
