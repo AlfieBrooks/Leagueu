@@ -1,20 +1,16 @@
 import React from 'react';
-import {
-  StyleSheet, StatusBar, View
-} from 'react-native';
+import { StyleSheet, StatusBar, View } from 'react-native';
 import { connect } from 'react-redux';
 
 import colourUtils from '../../utils/styles/colours';
 import regionMapping from '../../utils/constants/region-mapping';
-import rankedUrlTypes from '../../utils/constants/ranked-url-types';
-import { ProfileHeader } from '../profile-header/profile-header';
-import { UnrankedRankedInfo } from './ranked-info/unranked-ranked-info';
-import { RankedInfo } from './ranked-info/ranked-info';
-import { fetchRankedData, clearRankedData } from './actions/ranked-actions';
-import { addToFavourites, removeFromFavourites } from './actions/favourite-actions';
 import errorAlert from '../../utils/alert-utils';
-import { fetchChampionData, clearChampionData } from './actions/champion-actions';
-import { ChampionInfo } from './champions/champion-info';
+import { fetchRankedData, clearRankedData } from '../ranked/actions/ranked-actions';
+import { addToFavourites, removeFromFavourites } from '../profile-header/actions/favourite-actions';
+import { fetchChampionData, clearChampionData } from '../champions/actions/champion-actions';
+import { ProfileHeader } from '../profile-header/profile-header';
+import { RankedContainer } from '../ranked/ranked-container';
+import { ChampionContainer } from '../champions/champion-container';
 
 const MAX_FAVOURITES = 3;
 
@@ -98,45 +94,11 @@ class Profile extends React.Component {
           isAFavourite={this.isAFavourite(favourites, summonerId)}
         />
         <View style={styles.bottomContainer}>
-          <View style={styles.rankedContainer}>
-            { [rankedSolo, rankedFlexSR].map((rank) => {
-              if (rank.tier === rankedUrlTypes.UNRANKED) {
-                return (
-                  <UnrankedRankedInfo
-                    key={rank.queueType}
-                    queueType={rank.queueType}
-                    rankIcon={rank.rankIcon}
-                  />
-                );
-              }
-              return (
-                <RankedInfo
-                  key={rank.queueType}
-                  queueType={rank.queueType}
-                  wins={rank.wins}
-                  losses={rank.losses}
-                  winRatio={rank.winRatio}
-                  rank={rank.rank}
-                  tier={rank.tier}
-                  leaguePoints={rank.leaguePoints}
-                  rankIcon={rank.rankIcon}
-                />
-              );
-            })
-        }
-          </View>
-          <View style={styles.championContiner}>
-            { champions.map(champion => (
-              <ChampionInfo
-                key={champion.championId}
-                championLevel={champion.championLevel}
-                championPoints={champion.championPoints}
-                championName={champion.championName}
-                championImg={champion.championImg}
-              />
-            ))
-            }
-          </View>
+          <RankedContainer
+            rankedSolo={rankedSolo}
+            rankedFlexSR={rankedFlexSR}
+          />
+          <ChampionContainer champions={champions} />
         </View>
       </View>
     );
@@ -152,12 +114,6 @@ const styles = StyleSheet.create({
   bottomContainer: {
     flex: 1,
     justifyContent: 'space-between',
-  },
-  rankedContainer: {
-    flexDirection: 'row',
-  },
-  championContiner: {
-    flexDirection: 'row',
   }
 });
 

@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import FadeIn from 'react-native-fade-in-image';
 
-import colourUtils from '../../../utils/styles/colours';
+import colourUtils from '../../utils/styles/colours';
 
 export const ChampionInfo = ({
   championLevel,
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     paddingTop: 15,
-    paddingBottom: 45,
+    paddingBottom: 40,
     backgroundColor: colourUtils.seaBlue,
   },
   fadeImage: {

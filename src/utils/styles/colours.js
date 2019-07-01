@@ -7,4 +7,6 @@ export default {
   navy: '#566270',
   white: '#FFF',
   seaBlue: '#05668D',
+  green: '#43A047',
+  red: '#C0392B',
 };

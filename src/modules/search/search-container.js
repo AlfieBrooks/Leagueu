@@ -41,11 +41,14 @@ class Search extends React.Component {
   }
 
   handleFavouriteClick = (region, summonerName) => {
-    const { fetchSummonerIdAction, navigation: { navigate } } = this.props;
+    const { searchLoading, fetchSummonerIdAction, navigation: { navigate } } = this.props;
 
-    return fetchSummonerIdAction(region, summonerName)
-      .then(() => navigate('Profile'))
-      .catch(err => console.log(err));
+    if (!searchLoading) {
+      return fetchSummonerIdAction(region, summonerName)
+        .then(() => navigate('Profile'))
+        .catch(err => console.log(err));
+    }
+    return null;
   }
 
   handleSubmit() {
@@ -63,9 +66,7 @@ class Search extends React.Component {
       .catch(err => console.log(err));
   }
 
-  renderLoading = () => (
-    <Loading />
-  )
+  renderLoading = () => <Loading />;
 
   renderInput() {
     const { text, region } = this.state;

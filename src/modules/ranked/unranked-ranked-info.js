@@ -5,8 +5,8 @@ import {
 import FadeIn from 'react-native-fade-in-image';
 import PercentageCircle from 'react-native-percentage-circle';
 
-import colourUtils from '../../../utils/styles/colours';
-import rankedUrlTypes from '../../../utils/constants/ranked-url-types';
+import colourUtils from '../../utils/styles/colours';
+import rankedUrlTypes from '../../utils/constants/ranked-url-types';
 
 export const UnrankedRankedInfo = ({ queueType }) => (
   <View style={styles.container}>
