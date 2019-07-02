@@ -1,5 +1,7 @@
 import React from 'react';
-import { StyleSheet, StatusBar, View } from 'react-native';
+import {
+  StyleSheet, StatusBar, View, ScrollView
+} from 'react-native';
 import { connect } from 'react-redux';
 
 import colourUtils from '../../utils/styles/colours';
@@ -84,7 +86,7 @@ class Profile extends React.Component {
     } = this.props;
 
     return (
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <StatusBar barStyle="light-content" />
         <ProfileHeader
           summonerName={summonerName}
@@ -100,14 +102,14 @@ class Profile extends React.Component {
           />
           <ChampionContainer champions={champions} />
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'flex-start',
     backgroundColor: colourUtils.linkWater,
   },

@@ -5,6 +5,8 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { ScreenOrientation } from 'expo';
+import 'react-native-gesture-handler';
 
 import colourUtils from './src/utils/styles/colours';
 import Search from './src/modules/search/search-container';
@@ -30,6 +32,10 @@ export default class App extends React.Component {
         }
       });
     });
+  }
+
+  componentDidMount() {
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.DEFAULT);
   }
 
   renderLoading = () => (

@@ -40,6 +40,7 @@ export const RankedContainer = ({ rankedSolo, rankedFlexSR }) => (
 const styles = StyleSheet.create({
   rankedContainer: {
     flexDirection: 'row',
+    marginBottom: 20
   },
 });
 

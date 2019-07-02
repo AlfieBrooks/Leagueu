@@ -37,6 +37,9 @@ export const FavouritesList = ({ favourites, handleFavouriteClick }) => (
 );
 
 const styles = StyleSheet.create({
+  favouritesContainer: {
+    width: 300
+  },
   favouritesTitle: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -46,9 +49,6 @@ const styles = StyleSheet.create({
     color: colourUtils.purple,
     fontSize: 18,
     marginLeft: 5
-  },
-  favouritesContainer: {
-    width: 300
   },
   listItem: {
     marginBottom: 3,
