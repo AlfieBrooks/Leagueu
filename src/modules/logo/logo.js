@@ -1,14 +1,12 @@
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { StyleSheet, Image } from 'react-native';
 import logoSrc from '../../../assets/logo.png';
 
 export const Logo = () => (
-  <View style={styles.container}>
-    <Image
-      style={styles.logo}
-      source={logoSrc}
-    />
-  </View>
+  <Image
+    style={styles.logo}
+    source={logoSrc}
+  />
 );
 
 const styles = StyleSheet.create({
@@ -16,6 +14,7 @@ const styles = StyleSheet.create({
     height: 80,
     width: 280,
     padding: 10,
+    marginTop: 15
   }
 });
 

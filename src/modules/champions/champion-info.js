@@ -33,10 +33,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 15,
     paddingBottom: 40,
-    backgroundColor: colourUtils.seaBlue,
   },
   fadeImage: {
-    backgroundColor: colourUtils.seaBlue,
+    backgroundColor: colourUtils.navy,
   },
   image: {
     borderRadius: 35,

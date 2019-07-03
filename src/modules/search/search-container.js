@@ -8,13 +8,13 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   TouchableOpacity,
-  ScrollView,
   Modal,
   Picker,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Hoshi } from 'react-native-textinput-effects';
 import { Icon } from 'react-native-elements';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 
@@ -204,7 +204,12 @@ class Search extends React.Component {
     return (
       <View style={styles.wrapper}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-          <ScrollView contentContainerStyle={styles.container}>
+          <KeyboardAwareScrollView
+            resetScrollToCoords={{ x: 0, y: 0 }}
+            contentContainerStyle={styles.container}
+            extraHeight={50}
+            keyboardOpeningTime={0}
+          >
             <StatusBar barStyle="dark-content" />
             <Logo />
             <View style={styles.inputContainer}>
@@ -220,7 +225,7 @@ class Search extends React.Component {
             )}
             </View>
             { this.renderPicker() }
-          </ScrollView>
+          </KeyboardAwareScrollView>
         </TouchableWithoutFeedback>
       </View>
     );
@@ -281,6 +286,7 @@ const styles = StyleSheet.create({
   },
   favourites: {
     marginTop: 10,
+    marginBottom: 30,
     minHeight: 100
   }
 });

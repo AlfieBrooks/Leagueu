@@ -85,6 +85,7 @@ class Profile extends React.Component {
       rankedFlexSR,
       favourites,
       champions,
+      championsLoading,
     } = this.props;
 
     return (
@@ -102,7 +103,10 @@ class Profile extends React.Component {
             rankedSolo={rankedSolo}
             rankedFlexSR={rankedFlexSR}
           />
-          <ChampionContainer champions={champions} />
+          <ChampionContainer
+            champions={champions}
+            championsLoading={championsLoading}
+          />
         </View>
       </ScrollView>
     );
@@ -136,6 +140,7 @@ const mapStateToProps = (state) => {
     rankedFlexTT: rankedReducer.rankedFlexTT,
     favourites: favouriteReducer.favourites,
     champions: championReducer.champions,
+    championsLoading: championReducer.loading,
   };
 };
 
