@@ -8,3 +8,4 @@ npm-debug.*
 *.mobileprovision
 api-key.js
 .idea
+.vscode

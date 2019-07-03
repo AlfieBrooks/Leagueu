@@ -15,9 +15,12 @@ import {
 import { connect } from 'react-redux';
 import { Hoshi } from 'react-native-textinput-effects';
 import { Icon } from 'react-native-elements';
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
 
 import colourUtils from '../../utils/styles/colours';
 import regionMapping from '../../utils/constants/region-mapping';
+import countryMapping from '../../utils/constants/country-mapping';
 import errorAlert from '../../utils/alert-utils';
 import { Logo } from '../logo/logo';
 import { Loading } from '../loading/loading';
@@ -34,12 +37,34 @@ class Search extends React.Component {
   state = {
     text: '',
     shouldShowModal: false,
+    regionLoading: true,
     region: 'EUW',
   };
 
+  async componentWillMount() {
+    const region = await this.getLocationAsync();
+    this.setState({ regionLoading: false, region });
+  }
+
   componentDidMount() {
+    // TODO: Use the result of this in the transformers
     // const { fetchDdragonVersionAction } = this.props;
     // fetchDdragonVersionAction();
+  }
+
+  getLocationAsync = async () => {
+    const { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {
+      errorAlert('Permission to access location was denied');
+      return 'EUW';
+    }
+
+    const location = await Location.getCurrentPositionAsync({});
+    const { longitude, latitude } = location.coords;
+    const currentLocation = await Location.reverseGeocodeAsync({ latitude, longitude });
+
+    const country = currentLocation.map(value => value.isoCountryCode);
+    return countryMapping[country];
   }
 
   setModalVisible(visible) {
@@ -47,11 +72,16 @@ class Search extends React.Component {
   }
 
   handleFavouriteClick = (region, summonerName) => {
-    const { searchLoading, fetchSummonerIdAction, navigation: { navigate } } = this.props;
+    const {
+      searchLoading, storeRegionAction, fetchSummonerIdAction, navigation: { navigate }
+    } = this.props;
 
     if (!searchLoading) {
       return fetchSummonerIdAction(region, summonerName)
-        .then(() => navigate('Profile'))
+        .then(() => {
+          storeRegionAction(region);
+          navigate('Profile');
+        })
         .catch(err => console.log(err));
     }
     return null;
@@ -72,25 +102,35 @@ class Search extends React.Component {
       .catch(err => console.log(err));
   }
 
-  renderLoading = () => <Loading />;
+  renderLoading = size => <Loading size={size} />;
+
+  renderRegionButton() {
+    const { region } = this.state;
+    return (
+      <TouchableOpacity
+        style={styles.regionPickerButton}
+        onPress={() => this.setModalVisible(true)}
+      >
+        <Text style={styles.regionText}>{region}</Text>
+        <Icon
+          name="chevron-down"
+          type="font-awesome"
+          size={16}
+          color={colourUtils.purple}
+          containerStyle={styles.regionIcon}
+        />
+      </TouchableOpacity>
+    );
+  }
 
   renderInput() {
-    const { text, region } = this.state;
+    const { text, regionLoading } = this.state;
     return (
       <React.Fragment>
-        <TouchableOpacity
-          style={styles.regionPickerButton}
-          onPress={() => this.setModalVisible(true)}
-        >
-          <Text style={styles.regionText}>{region}</Text>
-          <Icon
-            name="chevron-down"
-            type="font-awesome"
-            size={16}
-            color={colourUtils.purple}
-            containerStyle={styles.regionIcon}
-          />
-        </TouchableOpacity>
+
+        <View style={styles.regionPickerButtonContainer}>
+          { regionLoading ? this.renderLoading('small') : this.renderRegionButton() }
+        </View>
         <View style={styles.searchBar}>
           <Hoshi
             label="Summoner Name"
@@ -213,6 +253,10 @@ const styles = StyleSheet.create({
     padding: 20,
     minWidth: 300,
     backgroundColor: colourUtils.white
+  },
+  regionPickerButtonContainer: {
+    justifyContent: 'center',
+    height: 50,
   },
   regionPickerButton: {
     flexDirection: 'row',

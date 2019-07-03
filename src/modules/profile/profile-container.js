@@ -5,7 +5,6 @@ import {
 import { connect } from 'react-redux';
 
 import colourUtils from '../../utils/styles/colours';
-import regionMapping from '../../utils/constants/region-mapping';
 import errorAlert from '../../utils/alert-utils';
 import { fetchRankedData, clearRankedData } from '../ranked/actions/ranked-actions';
 import { addToFavourites, removeFromFavourites } from '../profile-header/actions/favourite-actions';
@@ -19,10 +18,13 @@ const MAX_FAVOURITES = 3;
 class Profile extends React.Component {
   componentDidMount() {
     const {
-      fetchRankedDataAction, fetchChampionDataAction, summonerId
+      fetchRankedDataAction,
+      fetchChampionDataAction,
+      summonerId,
+      region,
     } = this.props;
-    fetchRankedDataAction(regionMapping.EUW, summonerId);
-    fetchChampionDataAction(regionMapping.EUW, summonerId);
+    fetchRankedDataAction(region, summonerId);
+    fetchChampionDataAction(region, summonerId);
   }
 
   componentWillUnmount() {
