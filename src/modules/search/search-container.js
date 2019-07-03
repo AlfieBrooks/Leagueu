@@ -29,6 +29,8 @@ import {
   fetchDdragonVersion, storeRegion, fetchSummonerId
 } from './actions/search-actions';
 
+const DEFAULT_REGION = 'EUW';
+
 class Search extends React.Component {
   static navigationOptions = {
     header: null
@@ -38,7 +40,7 @@ class Search extends React.Component {
     text: '',
     shouldShowModal: false,
     regionLoading: true,
-    region: 'EUW',
+    region: DEFAULT_REGION,
   };
 
   async componentWillMount() {
@@ -56,7 +58,7 @@ class Search extends React.Component {
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== 'granted') {
       errorAlert('Permission to access location was denied');
-      return 'EUW';
+      return DEFAULT_REGION;
     }
 
     const location = await Location.getCurrentPositionAsync({});
@@ -64,7 +66,7 @@ class Search extends React.Component {
     const currentLocation = await Location.reverseGeocodeAsync({ latitude, longitude });
 
     const country = currentLocation.map(value => value.isoCountryCode);
-    return countryMapping[country];
+    return countryMapping[country] || DEFAULT_REGION;
   }
 
   setModalVisible(visible) {
@@ -106,6 +108,7 @@ class Search extends React.Component {
 
   renderRegionButton() {
     const { region } = this.state;
+
     return (
       <TouchableOpacity
         style={styles.regionPickerButton}
@@ -125,9 +128,9 @@ class Search extends React.Component {
 
   renderInput() {
     const { text, regionLoading } = this.state;
+
     return (
       <React.Fragment>
-
         <View style={styles.regionPickerButtonContainer}>
           { regionLoading ? this.renderLoading('small') : this.renderRegionButton() }
         </View>
