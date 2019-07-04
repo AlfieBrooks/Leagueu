@@ -18,9 +18,7 @@ export const ProfileHeader = ({
   <View style={styles.container}>
     <View style={styles.backgroundContainer}>
       <Text style={styles.summonerNameText}>{summonerName}</Text>
-      <Text style={styles.summonerLevelText}>
-        {`Level: ${summonerLevel}`}
-      </Text>
+      <Text style={styles.summonerLevelText}>{`Level: ${summonerLevel}`}</Text>
       <Icon
         Component={TouchableScale}
         friction={90}

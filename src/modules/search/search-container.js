@@ -217,12 +217,12 @@ class Search extends React.Component {
             </View>
             <View style={styles.favourites}>
               { favourites.length > 0
-            && (
-              <FavouritesList
-                favourites={favourites}
-                handleFavouriteClick={this.handleFavouriteClick}
-              />
-            )}
+              && (
+                <FavouritesList
+                  favourites={favourites}
+                  handleFavouriteClick={this.handleFavouriteClick}
+                />
+              )}
             </View>
             { this.renderPicker() }
           </KeyboardAwareScrollView>
