@@ -61,7 +61,7 @@ class Search extends React.Component {
       return DEFAULT_REGION;
     }
 
-    const location = await Location.getCurrentPositionAsync({});
+    const location = await Location.getCurrentPositionAsync();
     const { longitude, latitude } = location.coords;
     const currentLocation = await Location.reverseGeocodeAsync({ latitude, longitude });
 

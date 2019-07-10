@@ -5,7 +5,7 @@ import { Loading } from '../loading/loading';
 import { ChampionInfo } from './champion-info';
 import colourUtils from '../../utils/styles/colours';
 
-const renderLoading = size => <Loading size={size} color={colourUtils.linkWater} />;
+const renderLoading = () => <Loading color={colourUtils.linkWater} />;
 
 const renderChampions = (champions) => {
   if (!champions.length) {
