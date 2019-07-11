@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "flexDirection": "column",
+      "paddingBottom": 40,
+      "paddingTop": 15,
+    }
+  }
+>
+  <View
+    placeholderStyle={
+      Object {
+        "backgroundColor": "#566270",
+      }
+    }
+    useNativeDriver={true}
+  >
+    <Image
+      onLoadEnd={[Function]}
+      resizeMode="contain"
+      source={
+        Object {
+          "uri": "img",
+        }
+      }
+      style={
+        Object {
+          "borderRadius": 35,
+          "height": 70,
+          "marginBottom": 10,
+          "width": 70,
+        }
+      }
+    />
+    <View
+      style={
+        Object {
+          "bottom": 0,
+          "left": 0,
+          "opacity": 1,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "borderRadius": 35,
+              "height": 70,
+              "marginBottom": 10,
+              "width": 70,
+            },
+            Object {
+              "backgroundColor": "#eee",
+            },
+            Object {
+              "backgroundColor": "#566270",
+            },
+          ]
+        }
+      />
+    </View>
+  </View>
+  <Text
+    style={
+      Object {
+        "color": "#FFF",
+        "fontWeight": "bold",
+        "marginBottom": 5,
+      }
+    }
+  >
+    Test
+  </Text>
+  <Text
+    style={
+      Object {
+        "color": "#F8FAFF",
+      }
+    }
+  >
+    Level 5
+  </Text>
+  <Text
+    style={
+      Object {
+        "color": "#F8FAFF",
+      }
+    }
+  >
+    500 pts
+  </Text>
+</View>
+`;
